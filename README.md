@@ -7,7 +7,7 @@
 python3をインストール
 
 ## TypeScript
-denoをインストール
+denoをインストール（参考：https://deno.land/manual@v1.36.3/getting_started/installation）
 
 ```bash
 brew install deno
