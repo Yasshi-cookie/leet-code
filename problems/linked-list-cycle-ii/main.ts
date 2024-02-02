@@ -22,8 +22,8 @@ class ListNode {
 
 /**
  * あるリストLがサイクルを持つとは
- * ある整数 k, n が存在して、任意の整数 i に対して
- * L_{i+n} = L_{i}
+ * ある整数 s, l が存在して、任意の整数 n と i >= s に対して
+ * L_{i} = L_{i + ln}
  * が成り立つことをいう
  */
 function detectCycle(head: ListNode | null): ListNode | null {
