@@ -10,13 +10,14 @@ function longestCommonPrefix(strs: string[]): string {
     let result = ''
 
     for (let i = 0; i < minLength; i++) {
-        for (let j = 1; j < strs.length; j++) {
-            if (strs[0][i] !== strs[j][i]) {
-                return result
-            }
+        const currentChar = strs[0][i];
+
+        if (strs.some(str => str[i] !== currentChar)) {
+            // 全ての文字列が同じprefixを持っていない場合は、それまでのprefixを返す
+            return result;
         }
 
-        result += strs[0][i]
+        result += currentChar;
     }
 
     return result
