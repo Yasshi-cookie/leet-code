@@ -16,8 +16,18 @@ function convert(s: string, numRows: number): string {
      * 文字列sのi番目の文字が何行目に出力されるかを返す
      */
     function getRowNumber(numRows: number, i: number): number {
-        const remainder = i % (2 * (numRows - 1))
-        return remainder <= (numRows - 1) ? remainder : 2 * (numRows - 1) - remainder
+        // iを(numRows - 1)で割った商
+        const quotient = Math.floor(i / (numRows - 1))
+        // iを(numRows - 1)で割った余り
+        const remainder = i % (numRows - 1)
+
+        if (quotient % 2 === 0) {
+            // 商が偶数の場合
+            return remainder
+        } else {
+            // 商が奇数の場合
+            return numRows - 1 - remainder
+        }
     }
 
     /**
@@ -145,8 +155,18 @@ class ZigZagPrint {
             return 0
         }
 
-        const remainder = i % (2 * (numRows - 1))
-        return remainder <= (numRows - 1) ? remainder : 2 * (numRows - 1) - remainder
+        // iを(numRows - 1)で割った商
+        const quotient = Math.floor(i / (numRows - 1))
+        // iを(numRows - 1)で割った余り
+        const remainder = i % (numRows - 1)
+
+        if (quotient % 2 === 0) {
+            // 商が偶数の場合
+            return remainder
+        } else {
+            // 商が奇数の場合
+            return numRows - 1 - remainder
+        }
     }
 
     /**
@@ -203,8 +223,8 @@ class ZigZagPrint {
     }
 }
 
-const s = "A"
-const numRows = 1
+const s = "PAYPALISHIRING"
+const numRows = 4
 
 debug(s, numRows)
 console.log(convert(s, numRows))
