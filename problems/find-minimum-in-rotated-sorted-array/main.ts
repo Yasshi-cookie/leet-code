@@ -22,14 +22,11 @@
  *       const n = nums.length
  *
  *       if (nums[0] < nums[n - 1]) {
- *           // 元の配列と同じ順番に並んでいる場合
  *           return nums[0]
  *       }
  *
  *       for (let i = 0; i < n; i++) {
  *           if (nums[i] > nums[i + 1]) {
- *               // 昇順の並びが途切れている場合
- *               // 切れ目の次の要素が最小値
  *               return nums[i + 1]
  *           }
  *       }
@@ -49,11 +46,12 @@ function findMin(nums: number[]): number {
         return nums[0]
     }
 
+    // numsの最小値を検索する範囲を示すインデックス
     let left = 0
     let right = n - 1
 
-    // 元の配列の先頭の要素（最小値）を二分探索する
-    // 多くてもn回の探索では終了する。
+    // numsの最小値を二分探索する
+    // 多くてもn回の探索では終了するためfor文を使っています。（while(left < right)でも良い。）
     for (let count = 0; count < n; count++) {
         if (nums[left] > nums[left + 1]) {
             // 昇順の並びが途切れている場合
@@ -67,10 +65,10 @@ function findMin(nums: number[]): number {
         const leftValue = nums[left]
 
         if (midValue > rightValue) {
-            // 元の配列の先頭はmidより右にある
+            // 元の配列の先頭はmidと同じ位置かそれより右にある
             left = mid
         } else if (midValue < leftValue) {
-            // 元の配列の先頭はmidより左にある
+            // 元の配列の先頭はmidと同じ位置かそれより左にある
             right = mid
         }
     }
