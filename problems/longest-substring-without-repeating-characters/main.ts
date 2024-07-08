@@ -6,17 +6,16 @@
  * function lengthOfLongestSubstring(s: string): number {
  *     const n = s.length;
  *     let response = 0;
- *
- *     for (let right = 0; right < n; right++) {
+ *     for (let left = 0; left < n; left++) {
  *         let subString = new Set<string>();
- *         for (let left = right; left < n; left++) {
+ *         for (let right = left; right < n; right++) {
  *             // 重複した文字が見つかったらループを抜ける
- *             if (subString.has(s[left])) {
+ *             if (subString.has(s[right])) {
  *                 break;
  *             }
- *             subString.add(s[left]);
+ *             subString.add(s[right]);
  *             // 条件を満たす部分文字列の最大長を更新
- *             response = Math.max(response, left - right + 1);
+ *             response = Math.max(response, right - left + 1);
  *         }
  *     }
  *
@@ -40,7 +39,6 @@ function lengthOfLongestSubstring(s: string): number {
 
         // 条件を満たす部分文字列の最大長を更新
         response = Math.max(response, right - left + 1);
-        console.log(subString);
     }
 
     return response;
