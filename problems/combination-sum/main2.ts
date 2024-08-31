@@ -21,3 +21,9 @@ function combinationSum(candidates: number[], target: number): number[][] {
     backtrack(0, target, [])
     return result
 }
+
+// Test cases
+// console.log(combinationSum([1,2], 4)) // Output: [[1,1,1,1],[1,1,2],[2,2]]
+// console.log(combinationSum([2,3,6,7], 7)) // Output: [[2,2,3],[7]]
+console.log(combinationSum([2,3,5], 8)) // Output: [[2,2,2,2],[2,3,3],[3,5]]
+// console.log(combinationSum([2], 1)) // Output: []
