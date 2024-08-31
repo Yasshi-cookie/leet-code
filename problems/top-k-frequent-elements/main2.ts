@@ -9,13 +9,10 @@ function topKFrequent(nums: number[], k: number): number[] {
         numToFrequency.set(num, (numToFrequency.get(num) ?? 0) + 1)
     }
 
-    return 
-    // const sortedNums = Array.from(numToFrequency.entries())
-    //     .sort((a, b) => b[1] - a[1])
-    //     .slice(0, k)
-    //     .map(([num]) => num)
-
-    return sortedNums
+    return Array.from(numToFrequency) // numToFrequency を配列に変換。各要素は [num, frequency] の形式
+        .sort((a, b) => b[1] - a[1]) // 出現回数の降順でソートして
+        .map(([num]) => num) // num のみを取り出す。[num] は分割代入で、一般に [first second] = [1, 2] と書くと first に 1 が代入される
+        .slice(0, k) // 上位 k 個を取り出す
 };
 
 // Test cases
