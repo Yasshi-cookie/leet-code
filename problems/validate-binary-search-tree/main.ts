@@ -17,41 +17,58 @@ class TreeNode {
 }
 
 function isValidBST(root: TreeNode | null): boolean {
-    if (root === null) {
-        // 現在のノードがnullの場合は、BSTの定義を満たしているとみなして次に行く
-        return true
-    }
+    function valid(node: TreeNode | null, min: number, max: number): boolean {
+        if (node === null) {
+            // 現在のノードがnullの場合は、BSTの定義を満たしているとみなして次に行く
+            return true
+        }
 
-    if (root.left === null && root.right === null) {
-        // 左のノードと右のノードが共にnullの場合は、BSTの定義を満たしているとみなして次に行く
-        return true
-    }
+        if (node.val <= min || node.val >= max) {
+            // 現在のノードの値がmin未満またはmax以上の場合は、BSTの定義を満たしていない
+            return false
+        }
 
-    if (root.left !== null && root.right === null) {
-        // 左のノードのみが存在する場合
-        if (root.left.val < root.val) {
+        if (node.left === null && node.right === null) {
+            // 左のノードと右のノードが共にnullの場合は、BSTの定義を満たしているとみなして次に行く
+            return true
+        }
+
+        if (node.left !== null && node.right === null) {
+            // 左のノードのみが存在する場合
+            if (node.left.val < node.val) {
+                // BSTの定義を満たしていれば、子ノードに対して再帰的にチェックする
+                return valid(node.left, min, node.val)
+            } else {
+                return false
+            }
+        }
+
+        if (node.left === null && node.right !== null) {
+            // 右のノードのみが存在する場合
+            if (node.val < node.right.val) {
+                // BSTの定義を満たしていれば、子ノードに対して再帰的にチェックする
+                return valid(node.right, node.val, max)
+            } else {
+                return false
+            }
+        }
+
+        // 以下、左右のノードが存在する場合
+        if (node.left!.val < node.val && node.val < node.right!.val) {
             // BSTの定義を満たしていれば、子ノードに対して再帰的にチェックする
-            return isValidBST(root.left)
+            return valid(node.left, min, node.val) && valid(node.right, node.val, max)
         } else {
             return false
         }
     }
 
-    if (root.left === null && root.right !== null) {
-        // 右のノードのみが存在する場合
-        if (root.val < root.right.val) {
-            // BSTの定義を満たしていれば、子ノードに対して再帰的にチェックする
-            return isValidBST(root.right)
-        } else {
-            return false
-        }
-    }
-
-    // 以下、左右のノードが存在する場合
-    if (root.left!.val < root.val && root.val < root.right!.val) {
-        // BSTの定義を満たしていれば、子ノードに対して再帰的にチェックする
-        return isValidBST(root.left) && isValidBST(root.right)
-    } else {
-        return false
-    }
+    return valid(root, Number.MIN_SAFE_INTEGER, Number.MAX_SAFE_INTEGER)
 };
+
+// Test cases
+const tree1 = new TreeNode(2, new TreeNode(1), new TreeNode(3))
+console.log(isValidBST(tree1)) // Output: true
+const tree2 = new TreeNode(5, new TreeNode(1), new TreeNode(4, new TreeNode(3), new TreeNode(6)))
+console.log(isValidBST(tree2)) // Output: false
+const tree3 = new TreeNode(5, new TreeNode(4), new TreeNode(6, new TreeNode(3), new TreeNode(7)))
+console.log(isValidBST(tree3)) // Output: false
